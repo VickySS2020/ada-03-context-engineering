@@ -19,6 +19,9 @@ def update_customer_email(customer, new_email, updated_by):
     if not EMAIL_REGEX.match(cleaned_email):
         raise ValueError("invalid-email")
 
+    if not isinstance(updated_by, str):
+        raise ValueError("invalid-user")
+    
     customer.email = cleaned_email.lower()
     customer.updated_by = updated_by
     return customer
