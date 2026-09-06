@@ -1,4 +1,7 @@
+import re
 from dataclasses import dataclass
+
+EMAIL_REGEX = re.compile(r"^[^@\s]+@[^@\s\.]+(\.[^@\s\.]+)+$")
 
 @dataclass
 class Customer:
@@ -9,7 +12,7 @@ class Customer:
     updated_by: str
 
 def update_customer_email(customer, new_email, updated_by):
-    if "@" not in new_email:
+    if not EMAIL_REGEX.match(new_email):
         raise ValueError("invalid-email")
     customer.email = new_email.lower()
     customer.updated_by = updated_by
